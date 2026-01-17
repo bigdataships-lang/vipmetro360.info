@@ -345,7 +345,7 @@ function calculatePrize(gameType) {
 function updateBalanceDisplay() {
     const balanceElement = document.getElementById('balanceAmount');
     if (balanceElement) {
-        balanceElement.textContent = `₹${gameState.balance}`;
+        balanceElement.textContent = `₹ ${gameState.balance}`;
     }
 }
 
@@ -364,7 +364,7 @@ function initiateGame1Payment() {
     
     // Check balance
     if (gameState.balance < price) {
-        showAlert('Insufficient Balance', `You need ₹${price} to play. Current balance: ₹${gameState.balance}`);
+        showAlert('Insufficient Balance', `You need ₹ ${price} to play. Current balance: ₹${gameState.balance}`);
         return;
     }
     
@@ -512,7 +512,7 @@ function handleGame1Success(paymentId) {
     const price = GAME_CONFIG.game1.price;
     
     // Deduct ticket price from balance
-    gameState.balance -= price;
+    // gameState.balance -= price;
     
     // Add prize to balance if won
     if (isWin) {
@@ -1104,5 +1104,4 @@ function showPaymentProcessingModal() {
 // Add some demo data
 console.log('Game Configuration:', GAME_CONFIG);
 console.log('Initial Balance:', gameState.balance);
-
 
