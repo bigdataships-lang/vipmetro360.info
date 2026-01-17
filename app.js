@@ -149,10 +149,10 @@ function generateRandomPrize() {
 function showWithdrawalMessage() {
     const minWithdrawal = 3000;
     if (gameState.balance >= minWithdrawal) {
-        showAlert('✅ Withdrawal Eligible', `Your balance: ₹${gameState.balance}\\nYou can withdraw your balance now!`);
+        showAlert('✅ Withdrawal Eligible', `Your balance: ₹ ${gameState.balance}\ You can withdraw your balance now!`);
     } else {
         const needed = minWithdrawal - gameState.balance;
-        showAlert('💳 Withdrawal Restricted', `Your balance: ₹${gameState.balance}\\nMinimum withdrawal limit: ₹${minWithdrawal}\\nYou need ₹${needed} more to withdraw!`);
+        showAlert('💳 Withdrawal Restricted', `Your balance: ₹ ${gameState.balance}\ Minimum withdrawal limit: ₹ ${minWithdrawal}\\n You need ₹ ${needed} more to withdraw!`);
     }
 }
 
@@ -1104,4 +1104,5 @@ function showPaymentProcessingModal() {
 // Add some demo data
 console.log('Game Configuration:', GAME_CONFIG);
 console.log('Initial Balance:', gameState.balance);
+
 
