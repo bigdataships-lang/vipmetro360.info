@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vipmetro360 - Ultimate Gaming Hub</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-neon: #00ff88;
+            --secondary-neon: #ff006e;
+            --tertiary-neon: #00d4ff;
+            --dark-bg: #0a0e27;
+            --card-bg: #1a1f3a;
+            --gold: #ffd700;
+            --text-primary: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%);
+            border-bottom: 2px solid var(--primary-neon);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary-neon), var(--tertiary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: var(--tertiary-neon);
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Balance Display */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary-neon) 0%, var(--tertiary-neon) 100%);
+            color: var(--dark-bg);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .balance-label {
+            font-size: 10px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .balance-amount {
+            font-size: 18px;
+            margin-top: 4px;
+        }
+
+        /* Main Container */
+        .main-container {
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        /* Dashboard Title */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .dashboard-subtitle {
+            font-size: 13px;
+            color: var(--tertiary-neon);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Game Card */
+        .game-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--primary-neon) 0%, transparent 70%);
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+
+        .game-card:hover {
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* Game Header */
+        .game-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .game-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--secondary-neon), var(--gold));
+            color: var(--dark-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+        }
+
+        .game-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--tertiary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .game-prize {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Game Details */
+        .game-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-item {
+            background: rgba(0, 255, 136, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-neon);
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: var(--tertiary-neon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* CTA Buttons */
+        .btn-cta {
+            font-weight: 700;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-neon {
+            background: linear-gradient(90deg, var(--primary-neon), var(--tertiary-neon));
+            color: var(--dark-bg);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-primary-neon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.6);
+            color: var(--dark-bg);
+            text-decoration: none;
+        }
+
+        .btn-primary-neon:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary-neon {
+            background: linear-gradient(90deg, var(--secondary-neon), var(--gold));
+            color: var(--dark-bg);
+            box-shadow: 0 8px 25px rgba(255, 0, 110, 0.4);
+        }
+
+        .btn-secondary-neon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 0, 110, 0.6);
+            color: var(--dark-bg);
+            text-decoration: none;
+        }
+
+        /* Result Modal Styles */
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border: 2px solid var(--primary-neon);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .modal-header {
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .modal-title {
+            font-weight: 900;
+            color: var(--primary-neon);
+        }
+
+        .btn-close {
+            filter: brightness(2);
+        }
+
+        /* Result Display */
+        .result-container {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .result-header {
+            margin-bottom: 20px;
+        }
+
+        .result-status {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .result-win {
+            color: var(--primary-neon);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .result-lose {
+            color: var(--secondary-neon);
+            text-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+        }
+
+        .result-amount {
+            font-size: 36px;
+            font-weight: 900;
+            margin: 15px 0;
+            background: linear-gradient(90deg, var(--gold), var(--primary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ticket-number {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px dashed var(--primary-neon);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--tertiary-neon);
+        }
+
+        .copy-btn {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Loading Animation */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 255, 136, 0.2);
+            border-top-color: var(--primary-neon);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+                padding-bottom: 100px;
+            }
+
+            .game-card {
+                padding: 16px;
+            }
+
+            .game-title {
+                font-size: 24px;
+            }
+
+            .game-prize {
+                font-size: 20px;
+            }
+
+            .dashboard-title {
+                font-size: 28px;
+            }
+
+            .btn-cta {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-title {
+                font-size: 22px;
+            }
+
+            .game-prize {
+                font-size: 18px;
+            }
+
+            .detail-item {
+                padding: 10px;
+            }
+
+            .detail-value {
+                font-size: 14px;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%);
+            border-top: 2px solid var(--primary-neon);
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--tertiary-neon);
+            margin-top: 40px;
+        }
+
+        .footer-text {
+            margin-bottom: 8px;
+        }
+
+        .disclaimer {
+            font-size: 10px;
+            color: rgba(0, 212, 255, 0.7);
+            margin-top: 10px;
+        }
+
+        /* Razorpay Button Override */
+        .razorpay-button {
+            background: linear-gradient(90deg, var(--secondary-neon), var(--gold)) !important;
+            color: var(--dark-bg) !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            padding: 14px 28px !important;
+            font-size: 16px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+        }
+
+        /* Glow Effect */
+        .glow-text {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+        }
+
+        /* Winners Ticker (horizontal) */
+        .winners-ticker-wrap {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.02) 0%, rgba(255, 0, 110, 0.02) 100%);
+            border-top: 1px solid rgba(0, 255, 136, 0.06);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.06);
+            padding: 8px 0;
+        }
+
+        .winners-ticker {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            align-items: center;
+            gap: 24px;
+            will-change: transform;
+            animation: ticker-move linear infinite;
+            padding-left: 100%;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.06);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,255,136,0.06);
+            color: rgba(255,255,255,0.9);
+            min-width: 220px;
+        }
+
+        .ticker-item .name { color: var(--primary-neon); font-weight: 700; }
+        .ticker-item .amount { color: var(--gold); font-weight: 800; }
+        .ticker-item .meta { color: rgba(255,255,255,0.7); font-size: 12px; }
+
+        @keyframes ticker-move {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="logo">🚆 vipmetro360</div>
+                    <div class="header-subtitle">Instant Win Gaming</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Winners Ticker (below header) -->
+    <div class="winners-ticker-wrap">
+        <div class="container-fluid">
+            <div class="winners-ticker" aria-hidden="true">
+                <div class="ticker-track" id="winnersTicker">
+                    <!-- ticker items populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title glow-text">🎯 PLAY & WIN</h1>
+            <p class="dashboard-subtitle">Get Instant Payouts • Real Cash Prizes</p>
+        </div>
+
+        <!-- Games Container -->
+        <div class="games-container">
+            <!-- Game 1: Instant Win -->
+            <div class="game-card float">
+                <div class="game-header">
+                    <span class="game-badge">⚡ Lightning Fast</span>
+                    <h2 class="game-title">Instant Win</h2>
+                    <div class="game-prize">₹1 Lakh Jackpot</div>
+                </div>
+
+                <div class="game-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Ticket Price</div>
+                        <div class="detail-value">₹25</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Win Chance</div>
+                        <div class="detail-value">Instant</div>
+                    </div>
+                </div>
+
+                <button class="btn-cta btn-primary-neon" data-bs-toggle="modal" data-bs-target="#game1Modal">
+                    <i class="fas fa-zap"></i> PAY & PLAY
+                </button>
+            </div>
+
+            <!-- Game 2: Mega Win -->
+            <div class="game-card float" style="animation-delay: 0.5s;">
+                <div class="game-header">
+                    <span class="game-badge">💰 Mega Jackpot</span>
+                    <h2 class="game-title">Mega Win</h2>
+                    <div class="game-prize">₹10 Lakh Prize</div>
+                </div>
+
+                <div class="game-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Ticket Price</div>
+                        <div class="detail-value">₹49</div>
+                    </div>
+                    <div class="detail-item" style="display: none;">
+                        <div class="detail-label">Total Tickets</div>
+                        <div class="detail-value">49 Only</div>
+                    </div>
+                </div>
+
+                <button class="btn-cta btn-secondary-neon" data-bs-toggle="modal" data-bs-target="#game2Modal">
+                    <i class="fas fa-star"></i> OPEN TICKET
+                </button>
+            </div>
+        </div>
+
+        <!-- old vertical winners section removed (now a horizontal ticker below header) -->
+
+        <!-- How It Works Section -->
+        <div style="background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 20px; margin-top: 30px;">
+            <h3 style="color: var(--primary-neon); margin-bottom: 15px; font-weight: 700;">
+                <i class="fas fa-info-circle"></i> How It Works
+            </h3>
+            <ul style="margin: 0; padding-left: 20px; color: var(--tertiary-neon); font-size: 14px;">
+                <li style="margin-bottom: 8px;">Click <strong>PAY & PLAY</strong> to enter the game</li>
+                <li style="margin-bottom: 8px;">Complete secure Razorpay payment</li>
+                <li style="margin-bottom: 8px;">Get your unique ticket number instantly</li>
+                <li style="margin-bottom: 8px;">See your result in seconds</li>
+                <li>Prize credited to your wallet if you win</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-text">🚆 vipmetro360 - Ultimate Gaming Hub</div>
+        <div class="footer-text">© 2026 All Rights Reserved</div>
+        <div class="disclaimer">
+            ⚠️ This is a demo version. For educational purposes only.<br>
+            Play responsibly. Terms & Conditions apply.
+        </div>
+    </footer>
+
+    <!-- Game 1 Modal - Instant Win -->
+    <div class="modal fade" id="game1Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-zap"></i> Instant Win - ₹1 Lakh
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="game1Content">
+                        <div class="result-container">
+                            <div style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
+                                    Ticket Price: <strong style="color: var(--gold);">₹25</strong>
+                                </p>
+                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                    <i class="fas fa-info-circle"></i> Click the button below to play now
+                                </p>
+                                <form style="display: flex; justify-content: center;">
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_S4gsE2XvesoRhA" async> </script>
+                                </form>
+                                <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
+                                    <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="game1Result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game 2 Modal - Mega Win -->
+    <div class="modal fade" id="game2Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-star"></i> Mega Win - ₹10 Lakh
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="game2Content">
+                        <div class="result-container">
+                            <div style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
+                                    Ticket Price: <strong style="color: var(--gold);">₹49</strong>
+                                </p>
+                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                    <i class="fas fa-info-circle"></i> Click the button below to open your ticket
+                                </p>
+                                <form style="display: flex; justify-content: center;">
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_S4g8WUIRONdTE1" async> </script>
+                                </form>
+                                <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
+                                    <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="game2Result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border: 2px solid var(--primary-neon);">
+                <div class="modal-body" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%); padding: 40px 30px; text-align: center;">
+                    <!-- Success Animation -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-neon), var(--tertiary-neon)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);">
+                            <i class="fas fa-check" style="font-size: 40px; color: var(--dark-bg);"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Success Title -->
+                    <h2 style="color: var(--primary-neon); font-weight: 900; margin-bottom: 10px; font-size: 28px;">
+                        Payment Successful!
+                    </h2>
+                    
+                    <!-- Amount -->
+                    <div style="margin-bottom: 25px;">
+                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Amount Added</p>
+                        <h3 style="color: var(--gold); font-size: 48px; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">
+                            ₹ <span id="successAmount">100</span>
+                        </h3>
+                    </div>
+                    
+                    <!-- Details -->
+                    <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid rgba(0, 255, 136, 0.2);">
+                        <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin: 5px 0;">
+                            <i class="fas fa-envelope"></i> A confirmation email has been sent to you
+                        </p>
+                        <p style="color: var(--tertiary-neon); font-size: 12px; margin: 10px 0 5px 0; word-break: break-all;">
+                            <strong>Payment ID:</strong><br>
+                            <span id="successPaymentId" style="font-family: monospace; font-size: 11px;">pay_S4gEhQgSVaW8xO</span>
+                        </p>
+                    </div>
+                    
+                    <!-- Success Message -->
+                    <p style="color: var(--primary-neon); font-weight: 600; margin-bottom: 25px;">
+                        <i class="fas fa-wallet"></i> Your wallet has been credited!
+                    </p>
+                    
+                    <!-- Continue Button -->
+                    <button type="button" class="btn-cta btn-primary-neon" onclick="closePaymentSuccess()">
+                        <i class="fas fa-play"></i> Start Playing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>

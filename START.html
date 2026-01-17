@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuckPlay - Mobile Gaming Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .hero {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.15) 0%, rgba(255, 0, 110, 0.15) 100%);
+            border-bottom: 3px solid #00ff88;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        .hero p {
+            color: #00d4ff;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        .btn-hero {
+            background: linear-gradient(90deg, #00ff88, #00d4ff);
+            color: #0a0e27;
+            border: none;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.6);
+            color: #0a0e27;
+            text-decoration: none;
+        }
+        .container-custom { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title {
+            color: #00ff88;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 40px 0 30px;
+            text-align: center;
+        }
+        .card-custom {
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.6), rgba(26, 31, 58, 0.3));
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .card-custom:hover {
+            border-color: #00ff88;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            transform: translateY(-5px);
+        }
+        .card-custom h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .card-custom p { color: #aaa; margin-bottom: 15px; }
+        .card-custom a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .card-custom a:hover { color: #00ff88; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .file-item {
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .file-item strong { color: #00ff88; }
+        .file-item p { margin: 8px 0 0 0; font-size: 13px; color: #aaa; }
+        .footer-custom {
+            background: rgba(0, 255, 136, 0.05);
+            border-top: 2px solid #00ff88;
+            padding: 30px 20px;
+            text-align: center;
+            color: #00d4ff;
+            margin-top: 60px;
+        }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            color: #aaa;
+        }
+        .feature-list li:before { content: "✓ "; color: #00ff88; font-weight: 700; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <h1>🎰 LuckPlay</h1>
+            <p>Mobile-First Instant Win Gaming Platform</p>
+            <a href="index.html" class="btn-hero"><i class="fas fa-play"></i> PLAY NOW</a>
+            <a href="docs.html" class="btn-hero" style="background: linear-gradient(90deg, #ff006e, #ffd700); color: #0a0e27;"><i class="fas fa-book"></i> DOCUMENTATION</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-custom">
+        <!-- Quick Start -->
+        <h2 class="section-title"><i class="fas fa-rocket"></i> Quick Start</h2>
+        <div class="grid-2">
+            <div class="card-custom">
+                <h3><i class="fas fa-play-circle"></i> Play Games</h3>
+                <p>Open the gaming platform and start playing instantly. Two exciting games await you!</p>
+                <a href="index.html" target="_blank"><i class="fas fa-arrow-right"></i> Open Gaming Platform</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-book"></i> Read Docs</h3>
+                <p>Check out complete documentation with guides, tips, and examples.</p>
+                <a href="docs.html" target="_blank"><i class="fas fa-arrow-right"></i> View Documentation</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-clock"></i> 2-Minute Setup</h3>
+                <p>Everything you need is ready. No installation required. Just open and play!</p>
+                <a href="QUICK_START.md" target="_blank"><i class="fas fa-arrow-right"></i> Quick Start Guide</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-code"></i> For Developers</h3>
+                <p>Customize the platform with colors, games, and payment options.</p>
+                <a href="SETUP_GUIDE.md" target="_blank"><i class="fas fa-arrow-right"></i> Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- What's Included -->
+        <h2 class="section-title"><i class="fas fa-box"></i> What's Included</h2>
+        <div class="grid-2">
+            <div>
+                <h3 style="color: #00ff88; margin-bottom: 20px;">🎮 Core Files</h3>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-code"></i> index.html</strong>
+                    <p>Main gaming website - Open this file to play!</p>
+                </div>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-code"></i> app.js</strong>
+                    <p>Game logic and JavaScript functionality</p>
+                </div>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-code"></i> CONFIGURATIONS.js</strong>
+                    <p>Configuration examples and presets</p>
+                </div>
+            </div>
+            <div>
+                <h3 style="color: #00ff88; margin-bottom: 20px;">📚 Documentation</h3>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-alt"></i> README.md</strong>
+                    <p>Complete reference and feature guide</p>
+                </div>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-alt"></i> SETUP_GUIDE.md</strong>
+                    <p>Developer guide with customization</p>
+                </div>
+                <div class="file-item">
+                    <strong><i class="fas fa-file-alt"></i> QUICK_START.md</strong>
+                    <p>Quick tips and common tasks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <h2 class="section-title"><i class="fas fa-star"></i> Platform Features</h2>
+        <div class="grid-2">
+            <div class="card-custom" style="border-left: 4px solid #00ff88;">
+                <h3>🎮 Two Games</h3>
+                <ul class="feature-list">
+                    <li>Instant Win (₹10 ticket, ₹1L prize)</li>
+                    <li>Mega Win (₹100 ticket, ₹10L prize)</li>
+                    <li>Instant results</li>
+                    <li>Unique tickets</li>
+                </ul>
+            </div>
+            <div class="card-custom" style="border-left: 4px solid #00d4ff;">
+                <h3>📱 Mobile-First</h3>
+                <ul class="feature-list">
+                    <li>Responsive design</li>
+                    <li>Touch optimized</li>
+                    <li>Fast loading</li>
+                    <li>All devices</li>
+                </ul>
+            </div>
+            <div class="card-custom" style="border-left: 4px solid #ff006e;">
+                <h3>🎨 Modern UI</h3>
+                <ul class="feature-list">
+                    <li>Neon gaming design</li>
+                    <li>Smooth animations</li>
+                    <li>Bold colors</li>
+                    <li>Professional look</li>
+                </ul>
+            </div>
+            <div class="card-custom" style="border-left: 4px solid #ffd700;">
+                <h3>💳 Payments</h3>
+                <ul class="feature-list">
+                    <li>Razorpay integration</li>
+                    <li>Demo mode ready</li>
+                    <li>Real payment ready</li>
+                    <li>Secure checkout</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- How to Customize -->
+        <h2 class="section-title"><i class="fas fa-paint-brush"></i> Easy Customization</h2>
+        <div class="grid-2">
+            <div class="card-custom">
+                <h3><i class="fas fa-palette"></i> Change Colors</h3>
+                <p>Edit CSS variables in index.html to match your brand. Takes 5 minutes!</p>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                    <code>--primary-neon: #00ff88;</code>
+                </p>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-dollar-sign"></i> Adjust Prices</h3>
+                <p>Change game ticket prices in app.js. Simple configuration.</p>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                    <code>game1.price = 10;</code>
+                </p>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-gift"></i> Modify Prizes</h3>
+                <p>Update prize amounts and win rates. Copy-paste ready code.</p>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                    <code>const prizes = [0, 100, 500, ...];</code>
+                </p>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-plus"></i> Add New Games</h3>
+                <p>Create additional games using the same structure. Fully documented.</p>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;">
+                    Follow the game card pattern
+                </p>
+            </div>
+        </div>
+
+        <!-- Deployment -->
+        <h2 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Deploy Instantly</h2>
+        <div class="grid-2">
+            <div class="card-custom">
+                <h3>GitHub Pages</h3>
+                <p><strong>FREE</strong> - Perfect for starting</p>
+                <ul class="feature-list">
+                    <li>Create repo</li>
+                    <li>Upload files</li>
+                    <li>Enable Pages</li>
+                    <li>Get live URL</li>
+                </ul>
+            </div>
+            <div class="card-custom">
+                <h3>Netlify</h3>
+                <p><strong>FREE</strong> - Fastest deployment</p>
+                <ul class="feature-list">
+                    <li>Drag & drop</li>
+                    <li>Instant deploy</li>
+                    <li>Live URL</li>
+                    <li>Auto updates</li>
+                </ul>
+            </div>
+            <div class="card-custom">
+                <h3>Vercel</h3>
+                <p><strong>FREE</strong> - Super fast</p>
+                <ul class="feature-list">
+                    <li>Run vercel</li>
+                    <li>Auto deployed</li>
+                    <li>Live URL</li>
+                    <li>Optimized</li>
+                </ul>
+            </div>
+            <div class="card-custom">
+                <h3>Traditional Server</h3>
+                <p><strong>PAID</strong> - Your domain</p>
+                <ul class="feature-list">
+                    <li>FTP upload</li>
+                    <li>Custom domain</li>
+                    <li>Full control</li>
+                    <li>Professional</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Documentation Resources -->
+        <h2 class="section-title"><i class="fas fa-info-circle"></i> Documentation Files</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="card-custom">
+                <h3><i class="fas fa-file-alt"></i> README.md</h3>
+                <p>Complete guide with all features, setup instructions, and customization options.</p>
+                <a href="README.md" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-file-alt"></i> SETUP_GUIDE.md</h3>
+                <p>Detailed developer guide with code examples and integration instructions.</p>
+                <a href="SETUP_GUIDE.md" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-file-alt"></i> IMPLEMENTATION_GUIDE.md</h3>
+                <p>Step-by-step implementation with troubleshooting and best practices.</p>
+                <a href="IMPLEMENTATION_GUIDE.md" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-file-alt"></i> QUICK_START.md</h3>
+                <p>Quick reference guide with tips, tricks, and common solutions.</p>
+                <a href="QUICK_START.md" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-file-alt"></i> DELIVERY_SUMMARY.md</h3>
+                <p>Complete package summary with features, metrics, and next steps.</p>
+                <a href="DELIVERY_SUMMARY.md" target="_blank"><i class="fas fa-external-link-alt"></i> Open</a>
+            </div>
+            <div class="card-custom">
+                <h3><i class="fas fa-file-code"></i> CONFIGURATIONS.js</h3>
+                <p>Ready-to-use configuration examples and presets for customization.</p>
+                <a href="CONFIGURATIONS.js" target="_blank"><i class="fas fa-external-link-alt"></i> View</a>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <h2 class="section-title"><i class="fas fa-code"></i> Technology Stack</h2>
+        <div class="grid-2">
+            <div class="card-custom">
+                <h3>Frontend</h3>
+                <ul class="feature-list">
+                    <li>HTML5</li>
+                    <li>CSS3 Gradients & Animations</li>
+                    <li>Vanilla JavaScript</li>
+                    <li>Bootstrap 5.3</li>
+                    <li>Font Awesome Icons</li>
+                </ul>
+            </div>
+            <div class="card-custom">
+                <h3>Integration</h3>
+                <ul class="feature-list">
+                    <li>Razorpay SDK</li>
+                    <li>CDN Libraries</li>
+                    <li>No Dependencies</li>
+                    <li>Demo Ready</li>
+                    <li>Production Ready</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Browser Support -->
+        <h2 class="section-title"><i class="fas fa-browser"></i> Browser Support</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <div class="card-custom">
+                <p style="margin: 0;">
+                    <strong style="color: #00ff88;">✓ Chrome</strong> •
+                    <strong style="color: #00ff88;">✓ Firefox</strong> •
+                    <strong style="color: #00ff88;">✓ Safari</strong> •
+                    <strong style="color: #00ff88;">✓ Edge</strong>
+                </p>
+                <p style="margin: 10px 0 0 0; font-size: 14px;">
+                    Plus iOS Safari, Chrome Mobile, and all modern mobile browsers
+                </p>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <h2 class="section-title"><i class="fas fa-check"></i> Next Steps</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="card-custom">
+                <h3>1️⃣ Play Games (2 minutes)</h3>
+                <p>Open <strong>index.html</strong> and play both games to see the platform in action.</p>
+            </div>
+            <div class="card-custom">
+                <h3>2️⃣ Customize (5 minutes)</h3>
+                <p>Change colors, prices, and game settings to match your brand.</p>
+            </div>
+            <div class="card-custom">
+                <h3>3️⃣ Deploy (5 minutes)</h3>
+                <p>Deploy to GitHub Pages, Netlify, or Vercel for a live URL.</p>
+            </div>
+            <div class="card-custom">
+                <h3>4️⃣ Share (Now)</h3>
+                <p>Share your gaming platform URL with users and team.</p>
+            </div>
+            <div class="card-custom">
+                <h3>5️⃣ Go Live (When Ready)</h3>
+                <p>Add Razorpay API key and enable real payments.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-custom">
+        <h3 style="color: #00ff88; margin-bottom: 15px;">Ready to Get Started?</h3>
+        <a href="index.html" class="btn-hero"><i class="fas fa-play"></i> PLAY NOW</a>
+        <p style="margin-top: 30px; font-size: 14px;">
+            Built with ❤️ for modern gaming platforms<br>
+            <strong>LuckPlay v1.0</strong> - Complete Mobile Gaming Platform
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
