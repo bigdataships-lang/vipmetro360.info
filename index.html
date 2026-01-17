@@ -12,6 +12,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        .review-box {
+  height: 320px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111827;
+  padding: 10px;
+}
+
+.review-track {
+  display: flex;
+  flex-direction: column;
+  animation: scrollReviews 25s linear infinite;
+}
+
+.review-item {
+  background: linear-gradient(145deg, #1f2933, #0f172a);
+  color: #fff;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 0 10px rgba(0,255,180,0.1);
+}
+
+.review-item strong {
+  color: #00ffae;
+}
+
+.review-item .text {
+  font-size: 13px;
+  color: #cbd5e1;
+  margin-top: 4px;
+}
+
+@keyframes scrollReviews {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
         * {
             margin: 0;
             padding: 0;
@@ -1412,5 +1454,6 @@
 </body>
 
 </html>
+
 
 
