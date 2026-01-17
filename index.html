@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vipmetro360 - Ultimate Gaming Hub</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -47,7 +48,7 @@
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 21px;
             font-weight: 900;
             background: linear-gradient(90deg, var(--primary-neon), var(--tertiary-neon));
             -webkit-background-clip: text;
@@ -68,8 +69,8 @@
         .balance-card {
             background: linear-gradient(135deg, var(--primary-neon) 0%, var(--tertiary-neon) 100%);
             color: var(--dark-bg);
-            padding: 12px 18px;
-            border-radius: 12px;
+            padding: 5px 3px;
+            border-radius: 60px;
             font-weight: 700;
             font-size: 14px;
             text-align: center;
@@ -347,18 +348,24 @@
 
         /* Animations */
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
             }
+
             50% {
                 box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
             }
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-10px);
             }
@@ -500,32 +507,107 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(0,0,0,0.06);
+            background: rgba(0, 0, 0, 0.06);
             padding: 8px 12px;
             border-radius: 8px;
-            border: 1px solid rgba(0,255,136,0.06);
-            color: rgba(255,255,255,0.9);
+            border: 1px solid rgba(0, 255, 136, 0.06);
+            color: rgba(255, 255, 255, 0.9);
             min-width: 220px;
         }
 
-        .ticker-item .name { color: var(--primary-neon); font-weight: 700; }
-        .ticker-item .amount { color: var(--gold); font-weight: 800; }
-        .ticker-item .meta { color: rgba(255,255,255,0.7); font-size: 12px; }
+        .ticker-item .name {
+            color: var(--primary-neon);
+            font-weight: 700;
+        }
+
+        .ticker-item .amount {
+            color: var(--gold);
+            font-weight: 800;
+        }
+
+        .ticker-item .meta {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
 
         @keyframes ticker-move {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .container {
+            max-width: 420px;
+            margin: auto;
+            padding: 12px;
+        }
+
+        .title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .winners-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .winner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(145deg, #141a2a, #0d1220);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 255, 180, 0.08);
+        }
+
+        .name {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .meta {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .amount {
+            color: #00ffae;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: right;
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container-fluid">
             <div class="row align-items-center">
-                <div class="col-12">
-                    <div class="logo">🚆 vipmetro360</div>
+                <div class="col-8">
+                    <div class="logo"> VIP Metro 360</div>
                     <div class="header-subtitle">Instant Win Gaming</div>
+                </div>
+                <div class="col-4" style="text-align: right;">
+                    <div class="balance-card" id="balanceCard" style="cursor: pointer; transition: all 0.3s ease;"
+                        title="Click to check withdrawal eligibility">
+                        <!-- <div class="balance-label">💳 Balance</div> -->
+                        <div class="balance-amount" id="balanceAmount">₹0</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -599,12 +681,422 @@
                     <i class="fas fa-star"></i> OPEN TICKET
                 </button>
             </div>
+
+            <!-- Game 3: Quick Play -->
+            <div class="game-card float" style="animation-delay: 1s;">
+                <div class="game-header">
+                    <span class="game-badge">🎯 Quick Play</span>
+                    <h2 class="game-title">Quick Play</h2>
+                    <div class="game-prize">₹10K Max Win</div>
+                </div>
+
+                <div class="game-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Ticket Price</div>
+                        <div class="detail-value">₹10</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Win Rate</div>
+                        <div class="detail-value">60%</div>
+                    </div>
+                </div>
+
+                <button class="btn-cta btn-primary-neon" data-bs-toggle="modal" data-bs-target="#game3Modal">
+                    <i class="fas fa-fire"></i> QUICK PLAY
+                </button>
+            </div>
+
+            <!-- Game 4: Big Win -->
+            <div class="game-card float" style="animation-delay: 1.5s;">
+                <div class="game-header">
+                    <span class="game-badge">💎 Premium</span>
+                    <h2 class="game-title">Big Win</h2>
+                    <div class="game-prize">₹50K Max Win</div>
+                </div>
+
+                <div class="game-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Ticket Price</div>
+                        <div class="detail-value">₹20</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Win Rate</div>
+                        <div class="detail-value">40%</div>
+                    </div>
+                </div>
+
+                <button class="btn-cta btn-secondary-neon" data-bs-toggle="modal" data-bs-target="#game4Modal">
+                    <i class="fas fa-crown"></i> BIG WIN
+                </button>
+            </div>
         </div>
 
         <!-- old vertical winners section removed (now a horizontal ticker below header) -->
+        <div class="container-fluid">
+            <div class="winners-ticker" aria-hidden="true">
+                <div class="ticker-track" id="winnersTicker" style="animation-duration: 40s;">
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sneha S.</span>
+                            <span class="meta">💰 Hyderabad, TL • 98****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹15,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
 
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Zara H.</span>
+                            <span class="meta">💰 Lucknow, UP • 99****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹22,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Arjun C.</span>
+                            <span class="meta">⚡ Vadodara, GJ • 99****890</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹9,100</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Arjun C.</span>
+                            <span class="meta">⚡ Vadodara, GJ • 99****890</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹9,100</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sanjay M.</span>
+                            <span class="meta">⚡ Indore, MP • 97****789</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹5,600</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Harsh N.</span>
+                            <span class="meta">⚡ Gurgaon, HR • 97****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹7,900</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Zara H.</span>
+                            <span class="meta">💰 Lucknow, UP • 99****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹22,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Harsh N.</span>
+                            <span class="meta">⚡ Gurgaon, HR • 97****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹7,900</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sanjay M.</span>
+                            <span class="meta">⚡ Indore, MP • 97****789</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹5,600</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Ananya D.</span>
+                            <span class="meta">💰 Pune, MH • 99****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹18,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sneha S.</span>
+                            <span class="meta">💰 Hyderabad, TL • 98****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹15,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Zara H.</span>
+                            <span class="meta">💰 Lucknow, UP • 99****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹22,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Arjun C.</span>
+                            <span class="meta">⚡ Vadodara, GJ • 99****890</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹9,100</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Arjun C.</span>
+                            <span class="meta">⚡ Vadodara, GJ • 99****890</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹9,100</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sanjay M.</span>
+                            <span class="meta">⚡ Indore, MP • 97****789</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹5,600</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Harsh N.</span>
+                            <span class="meta">⚡ Gurgaon, HR • 97****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹7,900</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Zara H.</span>
+                            <span class="meta">💰 Lucknow, UP • 99****456</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹22,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Harsh N.</span>
+                            <span class="meta">⚡ Gurgaon, HR • 97****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹7,900</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Sanjay M.</span>
+                            <span class="meta">⚡ Indore, MP • 97****789</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹5,600</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+
+                    <div class="ticker-item">
+                        <div style="display:flex;flex-direction:column;">
+                            <span class="name">Ananya D.</span>
+                            <span class="meta">💰 Pune, MH • 99****234</span>
+                        </div>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div class="amount">₹18,000</div>
+                            <div class="meta">won just now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h3 class="title">🔥 Live Bank Transfer</h3>
+
+            <div class="winners-list">
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Amit S.</div>
+                        <div class="meta">Mumbai, MH • 98****321</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹12,000</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Pooja R.</div>
+                        <div class="meta">Pune, MH • 99****112</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹8,500</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Rahul K.</div>
+                        <div class="meta">Delhi • 97****654</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹25,000</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Sneha P.</div>
+                        <div class="meta">Nagpur, MH • 96****889</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹6,200</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Arjun M.</div>
+                        <div class="meta">Indore, MP • 95****778</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹9,900</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Neha J.</div>
+                        <div class="meta">Jaipur, RJ • 98****445</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹14,000</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Rohit D.</div>
+                        <div class="meta">Bhopal, MP • 97****221</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹7,300</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <div class="winner">
+                    <div>
+                        <div class="name">Ananya T.</div>
+                        <div class="meta">Bengaluru, KA • 99****567</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹18,500</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+                <!-- ADD MORE DUMMY USERS (30–40 TOTAL) -->
+                <div class="winner">
+                    <div>
+                        <div class="name">Vikas N.</div>
+                        <div class="meta">Surat, GJ • 94****909</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹11,100</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+                <div class="winner">
+                    <div>
+                        <div class="name">Kiran L.</div>
+                        <div class="meta">Nashik, MH • 93****321</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹5,800</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+                <div class="winner">
+                    <div>
+                        <div class="name">Suresh B.</div>
+                        <div class="meta">Patna, BR • 91****777</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹10,000</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+                <div class="winner">
+                    <div>
+                        <div class="name">Meena A.</div>
+                        <div class="meta">Udaipur, RJ • 90****444</div>
+                    </div>
+                    <div class="right">
+                        <div class="amount">₹16,200</div>
+                        <div class="time">just now</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!-- How It Works Section -->
-        <div style="background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 20px; margin-top: 30px;">
+        <div
+            style="background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 15px; padding: 20px; margin-top: 30px;">
             <h3 style="color: var(--primary-neon); margin-bottom: 15px; font-weight: 700;">
                 <i class="fas fa-info-circle"></i> How It Works
             </h3>
@@ -641,15 +1133,18 @@
                 <div class="modal-body">
                     <div id="game1Content">
                         <div class="result-container">
-                            <div style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                            <div
+                                style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                                 <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
                                     Ticket Price: <strong style="color: var(--gold);">₹25</strong>
                                 </p>
-                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                <p
+                                    style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
                                     <i class="fas fa-info-circle"></i> Click the button below to play now
                                 </p>
                                 <form style="display: flex; justify-content: center;">
-                                    <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_S4vIFE2hZWzGWS" async> </script>
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_S4gsE2XvesoRhA" async> </script>
                                 </form>
                                 <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
                                     <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
@@ -676,15 +1171,18 @@
                 <div class="modal-body">
                     <div id="game2Content">
                         <div class="result-container">
-                            <div style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                            <div
+                                style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                                 <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
                                     Ticket Price: <strong style="color: var(--gold);">₹49</strong>
                                 </p>
-                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                <p
+                                    style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
                                     <i class="fas fa-info-circle"></i> Click the button below to open your ticket
                                 </p>
                                 <form style="display: flex; justify-content: center;">
-                                    <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_S4vJCisGJae5DP" async> </script>
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_S4g8WUIRONdTE1" async> </script>
                                 </form>
                                 <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
                                     <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
@@ -698,47 +1196,132 @@
         </div>
     </div>
 
+    <!-- Game 3 Modal - Quick Play -->
+    <div class="modal fade" id="game3Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-fire"></i> Quick Play - ₹10K
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="game3Content">
+                        <div class="result-container">
+                            <div
+                                style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
+                                    Ticket Price: <strong style="color: var(--gold);">₹10</strong>
+                                </p>
+                                <p
+                                    style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                    <i class="fas fa-info-circle"></i> Click the button below to play now
+                                </p>
+                                <form style="display: flex; justify-content: center;">
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_S4wBnpB23AQp9a" async> </script>
+                                </form>
+                                <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
+                                    <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="game3Result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game 4 Modal - Big Win -->
+    <div class="modal fade" id="game4Modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-crown"></i> Big Win - ₹50K
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="game4Content">
+                        <div class="result-container">
+                            <div
+                                style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <p style="color: var(--tertiary-neon); font-size: 14px; margin-bottom: 15px;">
+                                    Ticket Price: <strong style="color: var(--gold);">₹20</strong>
+                                </p>
+                                <p
+                                    style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-bottom: 20px; text-align: center;">
+                                    <i class="fas fa-info-circle"></i> Click the button below to play now
+                                </p>
+                                <form style="display: flex; justify-content: center;">
+                                    <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                        data-payment_button_id="pl_S4wDKb7a5oUFHS" async> </script>
+                                </form>
+                                <div style="margin-top: 15px; font-size: 12px; color: rgba(0, 212, 255, 0.7);">
+                                    <i class="fas fa-shield-alt"></i> Secure & Encrypted Payment
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="game4Result" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Payment Success Modal -->
-    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border: 2px solid var(--primary-neon);">
-                <div class="modal-body" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%); padding: 40px 30px; text-align: center;">
+                <div class="modal-body"
+                    style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%); padding: 40px 30px; text-align: center;">
                     <!-- Success Animation -->
                     <div style="margin-bottom: 30px;">
-                        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-neon), var(--tertiary-neon)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);">
+                        <div
+                            style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-neon), var(--tertiary-neon)); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);">
                             <i class="fas fa-check" style="font-size: 40px; color: var(--dark-bg);"></i>
                         </div>
                     </div>
-                    
+
                     <!-- Success Title -->
                     <h2 style="color: var(--primary-neon); font-weight: 900; margin-bottom: 10px; font-size: 28px;">
                         Payment Successful!
                     </h2>
-                    
+
                     <!-- Amount -->
                     <div style="margin-bottom: 25px;">
-                        <p style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Amount Added</p>
-                        <h3 style="color: var(--gold); font-size: 48px; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">
+                        <p
+                            style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">
+                            Amount Added</p>
+                        <h3
+                            style="color: var(--gold); font-size: 48px; font-weight: 900; margin: 0; text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);">
                             ₹ <span id="successAmount">100</span>
                         </h3>
                     </div>
-                    
+
                     <!-- Details -->
-                    <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid rgba(0, 255, 136, 0.2);">
+                    <div
+                        style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid rgba(0, 255, 136, 0.2);">
                         <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin: 5px 0;">
                             <i class="fas fa-envelope"></i> A confirmation email has been sent to you
                         </p>
-                        <p style="color: var(--tertiary-neon); font-size: 12px; margin: 10px 0 5px 0; word-break: break-all;">
+                        <p
+                            style="color: var(--tertiary-neon); font-size: 12px; margin: 10px 0 5px 0; word-break: break-all;">
                             <strong>Payment ID:</strong><br>
-                            <span id="successPaymentId" style="font-family: monospace; font-size: 11px;">pay_S4gEhQgSVaW8xO</span>
+                            <span id="successPaymentId"
+                                style="font-family: monospace; font-size: 11px;">pay_S4gEhQgSVaW8xO</span>
                         </p>
                     </div>
-                    
+
                     <!-- Success Message -->
                     <p style="color: var(--primary-neon); font-weight: 600; margin-bottom: 25px;">
                         <i class="fas fa-wallet"></i> Your wallet has been credited!
                     </p>
-                    
+
                     <!-- Continue Button -->
                     <button type="button" class="btn-cta btn-primary-neon" onclick="closePaymentSuccess()">
                         <i class="fas fa-play"></i> Start Playing
@@ -755,4 +1338,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
