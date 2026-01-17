@@ -907,7 +907,7 @@ function showAlert(title, message) {
         transform: translateX(-50%);
         width: 90%;
         max-width: 500px;
-        background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+        background: linear-gradient(135deg, rgba(0, 99, 117, 0.98), rgba(0, 255, 136, 0.1));
         border: 2px solid var(--tertiary-neon);
         color: var(--tertiary-neon);
         z-index: 9999;
@@ -1104,4 +1104,5 @@ function showPaymentProcessingModal() {
 // Add some demo data
 console.log('Game Configuration:', GAME_CONFIG);
 console.log('Initial Balance:', gameState.balance);
+
 
