@@ -118,7 +118,7 @@ function updateWinnersList() {
                     <span class="meta">${gameLabel} ${w.location} • ${w.phone}</span>
                 </div>
                 <div style="margin-left:auto; text-align:right;">
-                    <div class="amount">₹${w.amount.toLocaleString()}</div>
+                    <div class="amount">₹ ${w.amount.toLocaleString()}</div>
                     <div class="meta">won just now</div>
                 </div>
             </div>
@@ -152,7 +152,7 @@ function showWithdrawalMessage() {
         showAlert('✅ Withdrawal Eligible', `Your balance: ₹ ${gameState.balance}\ You can withdraw your balance now!`);
     } else {
         const needed = minWithdrawal - gameState.balance;
-        showAlert('💳 Withdrawal Restricted', `Your balance: ₹ ${gameState.balance}\ Minimum withdrawal limit: ₹ ${minWithdrawal}\\n You need ₹ ${needed} more to withdraw!`);
+        showAlert('💳 Withdrawal Restricted', `Your balance: ₹ ${gameState.balance}\ Minimum withdrawal limit: ₹ ${minWithdrawal}\ You need ₹ ${needed} more to withdraw!`);
     }
 }
 
@@ -187,7 +187,7 @@ function addBalanceToWallet(amount = 100) {
         walletModal.hide();
     }
     
-    showAlert('Success!', `₹${amount} added to your wallet. Total balance: ₹${gameState.balance}`);
+    showAlert('Success!', `₹ ${amount} added to your wallet. Total balance: ₹ ${gameState.balance}`);
 }
 
 /**
@@ -364,7 +364,7 @@ function initiateGame1Payment() {
     
     // Check balance
     if (gameState.balance < price) {
-        showAlert('Insufficient Balance', `You need ₹ ${price} to play. Current balance: ₹${gameState.balance}`);
+        showAlert('Insufficient Balance', `You need ₹ ${price} to play. Current balance: ₹ ${gameState.balance}`);
         return;
     }
     
@@ -413,7 +413,7 @@ function initiateGame2Payment() {
     
     // Check balance
     if (gameState.balance < price) {
-        showAlert('Insufficient Balance', `You need ₹${price} to play. Current balance: ₹${gameState.balance}`);
+        showAlert('Insufficient Balance', `You need ₹ ${price} to play. Current balance: ₹ ${gameState.balance}`);
         return;
     }
     
@@ -598,7 +598,7 @@ function displayGame1Result(ticketNumber, isWin, prize, paymentId) {
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
-                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game1.price}</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹ ${GAME_CONFIG.game1.price}</div>
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
@@ -658,7 +658,7 @@ function displayGame2Result(ticketNumber, isWin, prize, paymentId) {
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
-                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game2.price}</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹ ${GAME_CONFIG.game2.price}</div>
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
@@ -764,7 +764,7 @@ function displayGame3Result(ticketNumber, isWin, prize, paymentId) {
                     ${isWin ? '✅ YOU WON!' : '❌ BETTER LUCK NEXT TIME'}
                 </div>
                 ${isWin ? `<div style="font-size: 14px; color: var(--primary-neon); margin-top: 10px;">Congrats!</div>` : `<div style="font-size: 14px; color: var(--secondary-neon); margin-top: 10px;">Try Again!</div>`}
-                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹${prize}</div>
+                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹ ${prize}</div>
             </div>
             
             <div class="ticket-number">
@@ -784,7 +784,7 @@ function displayGame3Result(ticketNumber, isWin, prize, paymentId) {
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
-                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game3.price}</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹ ${GAME_CONFIG.game3.price}</div>
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
@@ -822,7 +822,7 @@ function displayGame4Result(ticketNumber, isWin, prize, paymentId) {
                     ${isWin ? '✅ YOU WON!' : '❌ BETTER LUCK NEXT TIME'}
                 </div>
                 ${isWin ? `<div style="font-size: 14px; color: var(--primary-neon); margin-top: 10px;">Congrats!</div>` : `<div style="font-size: 14px; color: var(--secondary-neon); margin-top: 10px;">Try Again!</div>`}
-                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹${prize}</div>
+                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹ ${prize}</div>
             </div>
             
             <div class="ticket-number">
@@ -842,7 +842,7 @@ function displayGame4Result(ticketNumber, isWin, prize, paymentId) {
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
-                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game4.price}</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹ ${GAME_CONFIG.game4.price}</div>
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
@@ -891,7 +891,7 @@ function closePaymentSuccess() {
         successModal.hide();
     }
     
-    showAlert('Wallet Updated', `Your wallet has been credited with ₹${gameState.balance}. You can now play the games!`);
+    showAlert('Wallet Updated', `Your wallet has been credited with ₹ ${gameState.balance}. You can now play the games!`);
 }
 
 /**
@@ -1044,7 +1044,7 @@ function showPaymentProcessingModal() {
                     </div>
                     <div>
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
-                        <div style="color: var(--gold); font-weight: 600;">₹${price}</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹ ${price}</div>
                     </div>
                     <div style="grid-column: 1 / -1;">
                         <div style="color: var(--tertiary-neon); margin-bottom: 4px; text-transform: uppercase;">Ticket Number</div>
@@ -1104,5 +1104,6 @@ function showPaymentProcessingModal() {
 // Add some demo data
 console.log('Game Configuration:', GAME_CONFIG);
 console.log('Initial Balance:', gameState.balance);
+
 
 
