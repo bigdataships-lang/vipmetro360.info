@@ -899,7 +899,7 @@ function closePaymentSuccess() {
  */
 function showAlert(title, message) {
     const alertDiv = document.createElement('div');
-    alertDiv.className = 'alert alert-info alert-dismissible fade show';
+    alertDiv.className = 'alert alert-dark alert-dismissible text-light fade show';
     alertDiv.style.cssText = `
         position: fixed;
         top: 80px;
@@ -907,7 +907,7 @@ function showAlert(title, message) {
         transform: translateX(-50%);
         width: 90%;
         max-width: 500px;
-        background: linear-gradient(135deg, rgba(0, 99, 117, 0.98), rgba(0, 255, 136, 0.1));
+        background: linear-gradient(135deg, rgba(40, 40, 40, 0.99), rgba(0, 65, 85, 1));
         border: 2px solid var(--tertiary-neon);
         color: var(--tertiary-neon);
         z-index: 9999;
