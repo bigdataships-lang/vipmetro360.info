@@ -12,6 +12,18 @@ const GAME_CONFIG = {
         maxPrize: 1000000,
         totalTickets: 49,
         winRate: 0.0 // Always fail for game 2
+    },
+    game3: {
+        name: 'Quick Play',
+        price: 10,
+        maxPrize: 10000,
+        winRate: 0.6 // 60% win rate
+    },
+    game4: {
+        name: 'Big Win',
+        price: 20,
+        maxPrize: 50000,
+        winRate: 0.4 // 40% win rate
     }
 };
 
@@ -65,6 +77,12 @@ function initializeApp() {
     // Initialize winners display
     initializeWinners();
     
+    // Add balance card click handler for withdrawal restriction message
+    const balanceCard = document.getElementById('balanceCard');
+    if (balanceCard) {
+        balanceCard.addEventListener('click', showWithdrawalMessage);
+    }
+    
     console.log('vipmetro360 Gaming Platform Initialized');
 }
 
@@ -114,6 +132,28 @@ function updateWinnersList() {
     // Adjust animation duration based on items
     const durationSec = Math.max(20, items.length * 4); // seconds
     track.style.animationDuration = durationSec + 's';
+}
+
+/**
+ * Generate random prize amount (₹49-₹1000)
+ */
+function generateRandomPrize() {
+    const minPrize = 49;
+    const maxPrize = 1000;
+    return Math.floor(Math.random() * (maxPrize - minPrize + 1)) + minPrize;
+}
+
+/**
+ * Show withdrawal restriction message
+ */
+function showWithdrawalMessage() {
+    const minWithdrawal = 3000;
+    if (gameState.balance >= minWithdrawal) {
+        showAlert('✅ Withdrawal Eligible', `Your balance: ₹${gameState.balance}\\nYou can withdraw your balance now!`);
+    } else {
+        const needed = minWithdrawal - gameState.balance;
+        showAlert('💳 Withdrawal Restricted', `Your balance: ₹${gameState.balance}\\nMinimum withdrawal limit: ₹${minWithdrawal}\\nYou need ₹${needed} more to withdraw!`);
+    }
 }
 
 /**
@@ -208,7 +248,7 @@ function handlePaymentSuccess(paymentData) {
 function handleGame1TicketPaymentSuccess(amount, paymentId) {
     const ticketNumber = generateTicketNumber();
     const isWin = determineResult('game1');
-    const prize = isWin ? calculatePrize('game1') : 0;
+    const prize = isWin ? generateRandomPrize() : 0; // Generate random prize instead of calculated
     const price = GAME_CONFIG.game1.price;
     
     // Deduct ticket price from balance
@@ -239,7 +279,7 @@ function handleGame1TicketPaymentSuccess(amount, paymentId) {
 function handleGame2TicketPaymentSuccess(amount, paymentId) {
     const ticketNumber = generateTicketNumber();
     const isWin = determineResult('game2'); // Always false per requirement
-    const prize = isWin ? calculatePrize('game2') : 0;
+    const prize = isWin ? generateRandomPrize() : 0; // Generate random prize instead of calculated
     
     // Deduct ticket price from balance (if balance was previously added)
     const price = GAME_CONFIG.game2.price;
@@ -661,6 +701,172 @@ function updateTicketsDisplay() {
 }
 
 /**
+ * Handle Game 3 Ticket Payment Success
+ */
+function handleGame3TicketPaymentSuccess(amount, paymentId) {
+    const ticketNumber = generateTicketNumber();
+    const isWin = Math.random() < GAME_CONFIG.game3.winRate;
+    const prize = isWin ? generateRandomPrize() : 0;
+    const price = GAME_CONFIG.game3.price;
+    
+    gameState.balance -= price;
+    
+    if (isWin) {
+        gameState.balance += prize;
+        gameState.recentWins.push({
+            game: 'Quick Play',
+            amount: prize,
+            time: new Date().toLocaleTimeString()
+        });
+    }
+    
+    localStorage.setItem('walletBalance', gameState.balance);
+    updateBalanceDisplay();
+    displayGame3Result(ticketNumber, isWin, prize, paymentId);
+}
+
+/**
+ * Handle Game 4 Ticket Payment Success
+ */
+function handleGame4TicketPaymentSuccess(amount, paymentId) {
+    const ticketNumber = generateTicketNumber();
+    const isWin = Math.random() < GAME_CONFIG.game4.winRate;
+    const prize = isWin ? generateRandomPrize() : 0;
+    const price = GAME_CONFIG.game4.price;
+    
+    gameState.balance -= price;
+    
+    if (isWin) {
+        gameState.balance += prize;
+        gameState.recentWins.push({
+            game: 'Big Win',
+            amount: prize,
+            time: new Date().toLocaleTimeString()
+        });
+    }
+    
+    localStorage.setItem('walletBalance', gameState.balance);
+    updateBalanceDisplay();
+    displayGame4Result(ticketNumber, isWin, prize, paymentId);
+}
+
+/**
+ * Display Game 3 Result
+ */
+function displayGame3Result(ticketNumber, isWin, prize, paymentId) {
+    const resultDiv = document.getElementById('game3Result');
+    const contentDiv = document.getElementById('game3Content');
+    
+    const resultHTML = `
+        <div class="result-container">
+            <div class="result-header">
+                <div class="result-status ${isWin ? 'result-win' : 'result-lose'}">
+                    ${isWin ? '✅ YOU WON!' : '❌ BETTER LUCK NEXT TIME'}
+                </div>
+                ${isWin ? `<div style="font-size: 14px; color: var(--primary-neon); margin-top: 10px;">Congrats!</div>` : `<div style="font-size: 14px; color: var(--secondary-neon); margin-top: 10px;">Try Again!</div>`}
+                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹${prize}</div>
+            </div>
+            
+            <div class="ticket-number">
+                <div style="font-size: 11px; color: rgba(0, 212, 255, 0.8); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Ticket Number</div>
+                ${ticketNumber}
+            </div>
+            
+            <div style="background: rgba(0, 255, 136, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 12px; text-align: left;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Game Type</div>
+                        <div style="color: white; font-weight: 600;">Quick Play</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Payment ID</div>
+                        <div style="color: white; font-weight: 600; font-size: 11px; word-break: break-all;">${paymentId}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game3.price}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
+                        <div style="color: white; font-weight: 600;">${new Date().toLocaleTimeString()}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-cta btn-primary-neon" style="margin-bottom: 10px;" onclick="copyToClipboard('${ticketNumber}')">
+                <i class="fas fa-copy"></i> Copy Ticket Number
+            </button>
+            
+            <button class="btn-cta" style="background: linear-gradient(90deg, rgba(0, 255, 136, 0.3), rgba(0, 212, 255, 0.3)); color: var(--primary-neon); border: 2px solid var(--primary-neon);" data-bs-dismiss="modal">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </button>
+        </div>
+    `;
+    
+    resultDiv.innerHTML = resultHTML;
+    contentDiv.style.display = 'none';
+    resultDiv.style.display = 'block';
+}
+
+/**
+ * Display Game 4 Result
+ */
+function displayGame4Result(ticketNumber, isWin, prize, paymentId) {
+    const resultDiv = document.getElementById('game4Result');
+    const contentDiv = document.getElementById('game4Content');
+    
+    const resultHTML = `
+        <div class="result-container">
+            <div class="result-header">
+                <div class="result-status ${isWin ? 'result-win' : 'result-lose'}">
+                    ${isWin ? '✅ YOU WON!' : '❌ BETTER LUCK NEXT TIME'}
+                </div>
+                ${isWin ? `<div style="font-size: 14px; color: var(--primary-neon); margin-top: 10px;">Congrats!</div>` : `<div style="font-size: 14px; color: var(--secondary-neon); margin-top: 10px;">Try Again!</div>`}
+                <div class="result-amount" style="${isWin ? 'color: var(--gold);' : 'color: var(--secondary-neon);'}">₹${prize}</div>
+            </div>
+            
+            <div class="ticket-number">
+                <div style="font-size: 11px; color: rgba(0, 212, 255, 0.8); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Ticket Number</div>
+                ${ticketNumber}
+            </div>
+            
+            <div style="background: rgba(255, 0, 110, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 12px; text-align: left;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Game Type</div>
+                        <div style="color: white; font-weight: 600;">Big Win</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Payment ID</div>
+                        <div style="color: white; font-weight: 600; font-size: 11px; word-break: break-all;">${paymentId}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Ticket Price</div>
+                        <div style="color: var(--gold); font-weight: 600;">₹${GAME_CONFIG.game4.price}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--tertiary-neon); margin-bottom: 4px;">Time</div>
+                        <div style="color: white; font-weight: 600;">${new Date().toLocaleTimeString()}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-cta btn-secondary-neon" style="margin-bottom: 10px;" onclick="copyToClipboard('${ticketNumber}')">
+                <i class="fas fa-copy"></i> Copy Ticket Number
+            </button>
+            
+            <button class="btn-cta" style="background: linear-gradient(90deg, rgba(255, 0, 110, 0.3), rgba(255, 215, 0, 0.3)); color: var(--secondary-neon); border: 2px solid var(--secondary-neon);" data-bs-dismiss="modal">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </button>
+        </div>
+    `;
+    
+    resultDiv.innerHTML = resultHTML;
+    contentDiv.style.display = 'none';
+    resultDiv.style.display = 'block';
+}
+
+/**
  * Show Payment Success Page
  */
 function showPaymentSuccessPage(amount, paymentId) {
@@ -790,18 +996,31 @@ window.addEventListener('load', function() {
 function showPaymentProcessingModal() {
     const game1Modal = document.getElementById('game1Modal');
     const game2Modal = document.getElementById('game2Modal');
+    const game3Modal = document.getElementById('game3Modal');
+    const game4Modal = document.getElementById('game4Modal');
     
     // Generate ticket number for display
     const ticketNumber = generateTicketNumber();
     let gameType = '';
     let price = '';
+    let gameNumber = 0;
     
     if (game1Modal && game1Modal.classList.contains('show')) {
         gameType = 'Instant Win';
         price = GAME_CONFIG.game1.price;
+        gameNumber = 1;
     } else if (game2Modal && game2Modal.classList.contains('show')) {
         gameType = 'Mega Win';
         price = GAME_CONFIG.game2.price;
+        gameNumber = 2;
+    } else if (game3Modal && game3Modal.classList.contains('show')) {
+        gameType = 'Quick Play';
+        price = GAME_CONFIG.game3.price;
+        gameNumber = 3;
+    } else if (game4Modal && game4Modal.classList.contains('show')) {
+        gameType = 'Big Win';
+        price = GAME_CONFIG.game4.price;
+        gameNumber = 4;
     }
     
     if (!gameType) return;
@@ -843,31 +1062,42 @@ function showPaymentProcessingModal() {
     // Insert into the result div
     const game1Result = document.getElementById('game1Result');
     const game2Result = document.getElementById('game2Result');
-    const resultDiv = game1Modal && game1Modal.classList.contains('show') ? game1Result : game2Result;
+    const game3Result = document.getElementById('game3Result');
+    const game4Result = document.getElementById('game4Result');
+    
+    let resultDiv;
+    if (gameNumber === 1) resultDiv = game1Result;
+    else if (gameNumber === 2) resultDiv = game2Result;
+    else if (gameNumber === 3) resultDiv = game3Result;
+    else if (gameNumber === 4) resultDiv = game4Result;
     
     if (resultDiv) {
         resultDiv.innerHTML = processingHTML;
         resultDiv.style.display = 'block';
         
         // Hide content
-        const contentDiv = game1Modal && game1Modal.classList.contains('show') ? 
-            document.getElementById('game1Content') : 
-            document.getElementById('game2Content');
+        const contentDivId = gameNumber === 1 ? 'game1Content' : 
+                              gameNumber === 2 ? 'game2Content' :
+                              gameNumber === 3 ? 'game3Content' : 'game4Content';
+        const contentDiv = document.getElementById(contentDivId);
         if (contentDiv) {
             contentDiv.style.display = 'none';
         }
         
-        // Auto-complete payment after 2 minutes (120 seconds)
+        // Auto-complete payment after 1 minute (60 seconds)
         setTimeout(() => {
-            const isGame1 = game1Modal && game1Modal.classList.contains('show');
             const paymentId = 'pay_' + Math.random().toString(36).substring(2, 11).toUpperCase();
             
-            if (isGame1) {
+            if (gameNumber === 1) {
                 handleGame1TicketPaymentSuccess(GAME_CONFIG.game1.price / 100, paymentId);
-            } else {
+            } else if (gameNumber === 2) {
                 handleGame2TicketPaymentSuccess(GAME_CONFIG.game2.price / 100, paymentId);
+            } else if (gameNumber === 3) {
+                handleGame3TicketPaymentSuccess(GAME_CONFIG.game3.price / 100, paymentId);
+            } else if (gameNumber === 4) {
+                handleGame4TicketPaymentSuccess(GAME_CONFIG.game4.price / 100, paymentId);
             }
-        }, 120000); // 2 minutes in milliseconds
+        }, 60000); // 1 minute in milliseconds
     }
 }
 
